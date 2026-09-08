@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const welcomeScreen = document.getElementById("welcome-screen");
     const enterButton = document.getElementById("enter-site");
 
-    const discordUsername = "1nsensible";
+    const discordUsername = "archiste.";
 
     music.volume = 0.25;
 
