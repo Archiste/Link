@@ -475,3 +475,36 @@ enterButton.addEventListener("click", async () => {
     await playMusic();
   }
 });
+
+enterButton.addEventListener("click", async () => {
+  welcomeScreen.classList.add("hidden");
+  document.body.classList.add("entered");
+
+  if (musicSelect.value) {
+    await playMusic();
+  }
+});
+
+if (enterButton && welcomeScreen) {
+    enterButton.addEventListener("click", () => {
+      welcomeScreen.classList.add("hidden");
+      document.body.classList.add("entered");
+    });
+  }
+  const video = document.querySelector(".background-video");
+
+  if (video) {
+    video.muted = true;
+
+    const playVideo = () => {
+      video.play().catch(() => {});
+    };
+
+    playVideo();
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        playVideo();
+      }
+    });
+  }
