@@ -1,194 +1,266 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Archiste — My personal links."
-    >
+  <title>Archiste — My links</title>
+  <meta name="description" content="Archiste — My links, music and projects.">
+  <meta name="theme-color" content="#030303">
 
-    <link rel="icon" type="image/x-icon" href="icon.ico">
-    <link rel="apple-touch-icon" href="archiste.png">
+  <link rel="icon" href="icon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="archiste.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="styles.css">
-
-    <meta
-        http-equiv="Content-Security-Policy"
-        content="
-            default-src 'self';
-            style-src 'self' https://fonts.googleapis.com;
-            font-src 'self' https://fonts.gstatic.com;
-            img-src 'self' data:;
-            media-src 'self';
-            script-src 'self';
-            connect-src 'self';
-            object-src 'none';
-            base-uri 'self';
-            form-action 'self';
-            upgrade-insecure-requests;
-        "
-    >
-
-    <script src="script.js" defer></script>
-
-    <title>Archiste</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div id="welcome-screen">
-        <div class="welcome-content">
-            <h2>welcome</h2>
-            <p>click to enter</p>
-            <button id="enter-site" type="button">
-                Enter
-            </button>
-        </div>
+  <div class="background">
+    <video
+      class="background-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="archiste.png"
+    >
+      <source
+        src="92be9e2b-e503-4b50-b672-b32a10e6301f.mp4"
+        type="video/mp4"
+      >
+    </video>
+
+    <div class="background-dark"></div>
+  </div>
+
+  <section id="welcome-screen" class="welcome-screen">
+  <div class="welcome-content">
+
+    <div class="welcome-top">
+      <span class="welcome-index">001</span>
+      <span class="welcome-slash">/</span>
+      <span class="welcome-label">ARCHISTE</span>
     </div>
 
-    <audio id="background-music" loop preload="auto">
-        <source
-            src="Evening Luxury (Diluc&Fischl)_ Genshin Impact Outfit Teaser INSANE Piano Arrangement.mp3"
-            type="audio/mpeg"
-        >
-    </audio>
+    <div class="welcome-center">
+      <p class="welcome-eyebrow">PERSONAL SPACE</p>
 
-    <div class="background">
-        <video
-            class="background-video"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="auto"
-            aria-hidden="true"
-        >
-            <source
-                src="92be9e2b-e503-4b50-b672-b32a10e6301f.mp4"
-                type="video/mp4"
-            >
-        </video>
+      <h1>
+        Welcome<span>.</span>
+      </h1>
+
+      <div class="welcome-line"></div>
+
+      <p class="welcome-subtitle">
+        projects · music · links
+      </p>
+
+      <button id="enter-site" class="enter-button" type="button">
+        <span>ENTER</span>
+        <span class="enter-arrow">↗</span>
+      </button>
     </div>
 
-    <main class="card">
+    <div class="welcome-bottom">
+      <span class="welcome-copyright">
+        © 2026 Archiste
+      </span>
 
-        <div class="profile">
-            <img
-                src="archiste.png"
-            >
+      <span class="welcome-version">
+        v2.0
+      </span>
+    </div>
+
+    </div>
+  </section>
+
+  <audio id="background-music" loop preload="metadata"></audio>
+
+  <main class="page">
+
+    <div class="card">
+
+      <div class="card-glow"></div>
+
+      <header class="profile">
+
+        <div class="avatar-wrapper">
+          <img
+            src="archiste.png"
+            alt="Archiste"
+            class="avatar"
+            width="82"
+            height="82"
+          >
         </div>
 
-        <header>
-            <h1>Archiste</h1>
-            <p>My links.</p>
-        </header>
+        <h1 id="discord-name">Archiste</h1>
 
-        <nav aria-label="Main links">
-            <ul>
+        <p>My links.</p>
 
-                <li>
-                    <a
-                        class="link-button"
-                        href="https://Archiste.github.io/Port"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="icon">↗</span>
-                        <span>My website</span>
-                        <span class="arrow">→</span>
-                    </a>
-                </li>
+      </header>
 
-                <li>
-                    <a
-                        class="link-button"
-                        href="https://open.spotify.com/user/crzwjqx022j2fh7534c25heom?si=94c13ba6b86e4e0f"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span class="icon">♫</span>
-                        <span>My Spotify</span>
-                        <span class="arrow">→</span>
-                    </a>
-                </li>
+      <nav class="links">
 
-                <li>
-                    <a
-                        class="link-button"
-                        href="#"
-                        id="discord-link"
-                    >
-                        <span class="icon">◉</span>
-                        <span>Contact me on Discord</span>
-                        <span class="arrow">→</span>
-                    </a>
-                </li>
+        <a
+          class="link-card sfx-button"
+          href="https://archiste.github.io/Port/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="link-left">
+            <span class="link-icon">↗</span>
 
-            </ul>
-        </nav>
+            <span>
+              <small>PROJECT</small>
+              <strong>My website</strong>
+            </span>
+          </span>
 
-        <footer>
-            <span>© 2026 Archiste</span>
-        </footer>
+          <span class="link-arrow">→</span>
+        </a>
 
-    </main>
+        <a
+          class="link-card sfx-button"
+          href="https://open.spotify.com/user/crzwjqx022j2fh7534c25heom?si=94c13ba6b86e4e0f"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="link-left">
+            <span class="link-icon">♫</span>
 
-    <div class="music-player">
-    <select id="music-select">
-        <option value="music/Evening Luxury (Diluc&Fischl)_ Genshin Impact Outfit Teaser INSANE Piano Arrangement.mp3">pick a song ♫</option>
+            <span>
+              <small>MUSIC</small>
+              <strong>My Spotify</strong>
+            </span>
+          </span>
 
-        <option value="music/Evening Luxury (Diluc&Fischl)_ Genshin Impact Outfit Teaser INSANE Piano Arrangement.mp3">
-            Evening Luxury (Moi core mdr)
-        </option>
+          <span class="link-arrow">→</span>
+        </a>
 
-        <option value="music/Quarto De Hotel - Hareton Salvanini but Its only the best part.mp3">
-            Quatro de Hotel
-        </option>
+      </nav>
 
-        <option value="music/Mac Miller - Congratulations (Piano Cover).mp3">
-            Mac Miller - Congratulations
-        </option>
+      <section class="featured">
 
-        <option value="music/The Angel Pt.5 The Best Part.mp3">
-            The Angel Pt.5 (eon)
-        </option>
+        <div class="featured-top">
+          <span>ABOUT</span>
+          <span>✦</span>
+        </div>
 
-        <option value="music/zombie.mp3">
-            zombie
-        </option>
+        <h2>Let's connect.</h2>
 
-        <option value="music/city.mp3">
-            city
-        </option>
+        <p>
+          I'm a dev who loves video games, music and programming.
+          I create websites, apps and other projects.
+        </p>
 
-        <option value="music/MME. RIFFAUD.mp3">
-           MME. RIFFAUD
-        </option>
+      </section>
+
+      <section class="discord-card">
+
+        <div class="discord-avatar-wrapper">
+
+          <img
+            id="discord-avatar"
+            src="archiste.png"
+            alt="Discord"
+            class="discord-avatar"
+          >
+
+          <span
+            id="discord-status-dot"
+            class="discord-status-dot discord-status-offline"
+          ></span>
+
+        </div>
+
+        <div class="discord-details">
+
+          <div class="discord-name-row">
+            <strong id="discord-display-name">Archiste</strong>
+            <span id="discord-status">Offline</span>
+          </div>
+
+          <p id="discord-activity">Discord</p>
+
+        </div>
+
+        <button
+          id="discord-copy"
+          class="discord-copy sfx-button"
+          type="button"
+          aria-label="Copier le pseudo Discord"
+        >
+          ⧉
+        </button>
+
+      </section>
+
+      <footer>
+        © 2026 Archiste
+      </footer>
+
+    </div>
+
+  </main>
+
+  <div class="music-player">
+
+    <div class="music-info">
+
+      <span class="music-disc">♫</span>
+
+      <div>
+        <small>NOW PLAYING</small>
+        <span id="current-song">No song selected</span>
+      </div>
+
+    </div>
+
+    <select id="music-select" aria-label="Choisir une musique">
+
+      <option value="">Choose a song</option>
+
+      <option value="music/Evening Luxury (Diluc&Fischl)_ Genshin Impact Outfit Teaser INSANE Piano Arrangement.mp3">
+        Evening Luxury
+      </option>
+
+      <option value="music/Quarto De Hotel - Hareton Salvanini but Its only the best part.mp3">
+        Quarto de Hotel
+      </option>
+
+      <option value="music/Mac Miller - Congratulations (Piano Cover).mp3">
+        Mac Miller — Congratulations
+      </option>
+
+      <option value="music/MME. RIFFAUD.mp3">
+        MME. RIFFAUD
+      </option>
 
     </select>
 
-    <button id="music-toggle" type="button">▶</button>
-   </div>
-   
-
-    <div
-        id="notification"
-        role="status"
-        aria-live="polite"
+    <button
+      id="music-toggle"
+      class="sfx-button"
+      type="button"
+      aria-label="Lire la musique"
     >
-        <span>✓</span>
-        Discord copié !
-    </div>
+      ▶
+    </button>
+
+  </div>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="script.js" defer></script>
 
 </body>
 </html>
