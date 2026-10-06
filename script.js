@@ -29,57 +29,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let hoverAudioContext = null;
 
-function playHoverSfx() {
+let lastGlitch = 0;
+
+function playGlitch(strong) {
   try {
+    const now = performance.now();
+    if (!strong && now - lastGlitch < 90) return;
+    lastGlitch = now;
+
     if (!hoverAudioContext) {
-      hoverAudioContext = new (
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
+      hoverAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const ctx = hoverAudioContext;
+    if (ctx.state === "suspended") ctx.resume();
+
+    const t = ctx.currentTime;
+    const dur = strong ? 0.28 : 0.13;
+    const level = strong ? 0.07 : 0.035;
+    const len = Math.floor(ctx.sampleRate * dur);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+
+    // Bruit haché et écrasé (bitcrush + stutter)
+    let i = 0;
+    while (i < len) {
+      const step = 8 + Math.floor(Math.random() * 60);
+      const v = Math.random() * 2 - 1;
+      const gate = Math.random() > 0.35 ? 1 : 0;
+      for (let k = 0; k < step && i < len; k++, i++) d[i] = v * gate;
     }
 
-    if (hoverAudioContext.state === "suspended") {
-      hoverAudioContext.resume();
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.Q.value = 1.2;
+    filter.frequency.setValueAtTime(600, t);
+    filter.frequency.exponentialRampToValueAtTime(5000, t + dur);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(level, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    src.start(t);
+
+    // Blips carrés à hauteur aléatoire
+    const osc = ctx.createOscillator();
+    const og = ctx.createGain();
+    osc.type = "square";
+    for (let k = 0; k < 5; k++) {
+      osc.frequency.setValueAtTime(120 + Math.random() * 1700, t + k * 0.03);
     }
+    og.gain.setValueAtTime(level / 3, t);
+    og.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.8);
+    osc.connect(og);
+    og.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + dur);
+  } catch (error) {}
+}
 
-    const oscillator = hoverAudioContext.createOscillator();
-    const gain = hoverAudioContext.createGain();
-
-    oscillator.type = "sine";
-
-    oscillator.frequency.setValueAtTime(
-      720,
-      hoverAudioContext.currentTime
-    );
-
-    oscillator.frequency.exponentialRampToValueAtTime(
-      980,
-      hoverAudioContext.currentTime + 0.055
-    );
-
-    gain.gain.setValueAtTime(
-      0.0001,
-      hoverAudioContext.currentTime
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.025,
-      hoverAudioContext.currentTime + 0.008
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      hoverAudioContext.currentTime + 0.07
-    );
-
-    oscillator.connect(gain);
-    gain.connect(hoverAudioContext.destination);
-
-    oscillator.start();
-    oscillator.stop(hoverAudioContext.currentTime + 0.075);
-  } catch (error) {
-
-  }
+function playHoverSfx() {
+  playGlitch(false);
 }
 
    const hoverElements = document.querySelectorAll(
@@ -109,60 +121,8 @@ function playHoverSfx() {
     }
   }
 
-  function playHoverSound() {
-    if (!audioContext) return;
 
-    try {
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-
-      oscillator.type = "sine";
-
-      oscillator.frequency.setValueAtTime(
-        620,
-        audioContext.currentTime
-      );
-
-      oscillator.frequency.exponentialRampToValueAtTime(
-        820,
-        audioContext.currentTime + 0.045
-      );
-
-      gain.gain.setValueAtTime(
-        0.0001,
-        audioContext.currentTime
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.045,
-        audioContext.currentTime + 0.008
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        audioContext.currentTime + 0.07
-      );
-
-      oscillator.connect(gain);
-      gain.connect(audioContext.destination);
-
-      oscillator.start();
-      oscillator.stop(
-        audioContext.currentTime + 0.075
-      );
-
-    } catch {}
-  }
-
-  document
-    .querySelectorAll(".sfx-button")
-    .forEach((button) => {
-
-      button.addEventListener("mouseenter", () => {
-        playHoverSound();
-      });
-
-    });
+  
 
 
 
@@ -171,6 +131,7 @@ function playHoverSfx() {
   function updateMusicButton() {
 
     const playing = !music.paused;
+    document.querySelector(".music-disc")?.classList.toggle("playing", playing);
 
     musicToggle.textContent =
       playing ? "Ⅱ" : "▶";
@@ -301,10 +262,7 @@ function updateDiscord(data) {
   const user = data.discord_user;
   const status = data.discord_status || "offline";
 
-  discordName.textContent =
-    user.global_name ||
-    user.username ||
-    "Archiste";
+  
 
   discordStatus.textContent =
     statusNames[status] || "Offline";
@@ -465,46 +423,17 @@ function updateDiscord(data) {
   updateMusicButton();
   updateSongName();
 
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("button, a, select")) playGlitch(true);
+  });
+
+  const glow = document.querySelector(".cursor-glow");
+  window.addEventListener("mousemove", (event) => {
+    if (!glow) return;
+    glow.style.left = event.clientX + "px";
+    glow.style.top = event.clientY + "px";
+  });
+
+  enterButton.focus();
 });
 
-enterButton.addEventListener("click", async () => {
-  welcomeScreen.classList.add("hidden");
-  document.body.classList.add("entered");
-
-  if (musicSelect.value) {
-    await playMusic();
-  }
-});
-
-enterButton.addEventListener("click", async () => {
-  welcomeScreen.classList.add("hidden");
-  document.body.classList.add("entered");
-
-  if (musicSelect.value) {
-    await playMusic();
-  }
-});
-
-if (enterButton && welcomeScreen) {
-    enterButton.addEventListener("click", () => {
-      welcomeScreen.classList.add("hidden");
-      document.body.classList.add("entered");
-    });
-  }
-  const video = document.querySelector(".background-video");
-
-  if (video) {
-    video.muted = true;
-
-    const playVideo = () => {
-      video.play().catch(() => {});
-    };
-
-    playVideo();
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        playVideo();
-      }
-    });
-  }
