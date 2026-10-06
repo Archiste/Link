@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Mono:wght@300;400;500&display=swap"
     rel="stylesheet"
   >
 
@@ -21,6 +21,15 @@
 </head>
 
 <body>
+
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="sigil" aria-hidden="true">
+    <span class="ring ring-1"></span><span class="ring ring-2"></span><span class="ring ring-3"></span>
+    <span class="diamond"></span><span class="cross"></span><span class="eye"></span>
+  </div>
+  <div class="vertical-text" aria-hidden="true">Archiste</div>
+  <div class="meta-corner" aria-hidden="true">EST. 2026</div>
 
   <div class="background">
     <video
@@ -51,21 +60,21 @@
     </div>
 
     <div class="welcome-center">
-      <p class="welcome-eyebrow">PERSONAL SPACE</p>
+      <p class="welcome-eyebrow">SYSTEM ONLINE</p>
 
       <h1>
-        Welcome<span>.</span>
+        Welcome
       </h1>
 
       <div class="welcome-line"></div>
 
       <p class="welcome-subtitle">
-        projects · music · links
+        ARCHISTE // LINKS // MUSIC
       </p>
 
       <button id="enter-site" class="enter-button" type="button">
-        <span>ENTER</span>
-        <span class="enter-arrow">↗</span>
+        <span>Entrer</span>
+        <span class="enter-arrow">↘</span>
       </button>
     </div>
 
@@ -93,6 +102,7 @@
       <header class="profile">
 
         <div class="avatar-wrapper">
+          <span class="frame-corner tl"></span><span class="frame-corner tr"></span><span class="frame-corner bl"></span><span class="frame-corner br"></span>
           <img
             src="archiste.png"
             alt="Archiste"
@@ -102,7 +112,7 @@
           >
         </div>
 
-        <h1 id="discord-name">Archiste</h1>
+        <h1 id="discord-name">ARCHI<span>STE</span></h1>
 
         <p>My links.</p>
 
