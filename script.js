@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const welcomeScreen = document.getElementById("welcome-screen");
-  const enterButton = document.getElementById("enter-site");
+  const enterButton = document.getElementById("enter-site"); 
 
   const music = document.getElementById("background-music");
   const musicSelect = document.getElementById("music-select");
